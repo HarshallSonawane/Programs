@@ -196,12 +196,12 @@ public class Phase2 {
             switch (ch) {
                 case "GD":
                     PCB.TTC += 2;
+                    PCB.SI = 1;
                     if (PCB.TTC > PCB.TTL) {
                         PCB.TI = 2;
                         MOS();
                         System.exit(0);
                     }
-                    PCB.SI = 1;
                     break;
                 case "PD":
                     PCB.TTC++;
@@ -329,7 +329,7 @@ public class Phase2 {
         }
 
         try {
-            FileWriter outputF = new FileWriter("Output.txt", true);
+            FileWriter outputF = new FileWriter("F:\\VIT\\Module6\\Lab\\OS\\cp\\Output.txt", true);
             outputF.write(s);
             outputF.write("\n");
             outputF.close();
@@ -410,13 +410,10 @@ public class Phase2 {
         }
 
         String s = Integer.toString(random_int);
-        char f1 = ' ', f2 = ' ';
 
         if (s.length() > 1) {
-            f1 = s.charAt(0);
-            f2 = s.charAt(1);
-            M[c][0] = f1;
-            M[c][1] = f2;
+            M[c][0] = s.charAt(0);
+            M[c][1] = s.charAt(1);
             M[c][2] = ' ';
             M[c][3] = ' ';
         } else {
@@ -430,7 +427,8 @@ public class Phase2 {
 
     public static void main(String[] args) throws Exception {
 
-        FileReader file = new FileReader("Input.txt");
+        FileReader file = new FileReader("F:\\VIT\\Module6\\Lab\\OS\\cp\\Input.txt");
+        init();
         br = new BufferedReader(file);
         s = br.readLine();
         buffer = s.toCharArray();
@@ -438,7 +436,6 @@ public class Phase2 {
         while (s != null) {
             if (buffer[0] == '$' && buffer[1] == 'A' && buffer[2] == 'M' && buffer[3] == 'J') {
 
-                init();
                 allocatePTR();
                 String t = String.valueOf(buffer[4]);
                 t += String.valueOf(buffer[5]);
@@ -496,7 +493,7 @@ public class Phase2 {
             if (buffer[0] == '$' && buffer[1] == 'E' && buffer[2] == 'N' && buffer[3] == 'D') {
                 printMemory();
                 try {
-                    FileWriter outputF = new FileWriter("Output.txt", true);
+                    FileWriter outputF = new FileWriter("F:\\VIT\\Module6\\Lab\\OS\\cp\\Output.txt", true);
                     outputF.write("\n\n");
                     outputF.close();
                 } catch (Exception e) {
@@ -505,8 +502,7 @@ public class Phase2 {
                 System.out.println("Program Executed Successfully!");
             }
             s = br.readLine();
-
-            if (s == null) {
+            if (s==null || s.equals("")) {
                 break;
             }
             buffer = s.toCharArray();

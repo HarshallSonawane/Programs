@@ -2,16 +2,19 @@ import java.io.*;
 
 public class Phase1 {
     static char M[][];
-    static char R[] = new char[4];
-    static char IR[] = new char[4];
+    static char R[];
+    static char IR[];
     static int IC;
     static int c, SI;
-    static char buffer[] = new char[41];
+    static char buffer[];
     static String s;
     static BufferedReader br;
 
     static void init() {
         M = new char[100][4];
+        IR = new char[4];
+        R = new char[4];
+        buffer = new char[41];
     }
 
     static void printMemory() {
@@ -49,11 +52,9 @@ public class Phase1 {
                     break;
                 case "PD":
                     SI = 2;
-
                     break;
                 case "H":
                     SI = 3;
-
                     break;
                 case "LR":
                     for (int i = 0; i < 4; i++) {
@@ -123,6 +124,7 @@ public class Phase1 {
         int c = 0;
         String s = "";
         while (M[t1][c] != 0) {
+
             s += M[t1][c++];
             if (c == 4) {
                 t1++;
@@ -132,7 +134,7 @@ public class Phase1 {
                 break;
         }
         try {
-            FileWriter outputF = new FileWriter("Output.txt", true);
+            FileWriter outputF = new FileWriter("F:\\VIT\\Module6\\Lab\\OS\\cp\\Output.txt", true);
             outputF.write(s);
             outputF.write("\n");
             outputF.close();
@@ -143,7 +145,7 @@ public class Phase1 {
 
     private static void terminate() {
         try {
-            FileWriter outputF = new FileWriter("Output.txt", true);
+            FileWriter outputF = new FileWriter("F:\\VIT\\Module6\\Lab\\OS\\cp\\Output.txt", true);
             outputF.write("\n\n");
             outputF.close();
         } catch (Exception e) {
@@ -152,7 +154,7 @@ public class Phase1 {
     }
 
     public static void main(String[] args) throws Exception {
-        FileReader file = new FileReader("Input.txt");
+        FileReader file = new FileReader("F:\\VIT\\Module6\\Lab\\OS\\cp\\Phase1_Input.txt");
         br = new BufferedReader(file);
         s = br.readLine();
         buffer = s.toCharArray();
@@ -174,7 +176,7 @@ public class Phase1 {
                         }
                         for (int i = 0; i < 4; i++) {
                             if (buffer[0] == 'H') {
-
+                                M[k][0] = 'H';
                                 break;
                             }
                             M[k][i] = buffer[i];
@@ -184,7 +186,6 @@ public class Phase1 {
                     s = br.readLine();
                     buffer = s.toCharArray();
                 }
-                M[k][c] = 'H';
             }
             if (buffer[0] == '$' && buffer[1] == 'D' && buffer[2] == 'T' && buffer[3] == 'A') {
                 startExecution();
@@ -192,8 +193,20 @@ public class Phase1 {
 
             if (buffer[0] == '$' && buffer[1] == 'E' && buffer[2] == 'N' && buffer[3] == 'D') {
                 printMemory();
+                try {
+                    FileWriter outputF = new FileWriter("F:\\VIT\\Module6\\Lab\\OS\\cp\\Output.txt", true);
+                    outputF.write("\n\n");
+                    outputF.close();
+                } catch (Exception e) {
+                    System.out.println(e);
+                }
+                System.out.println("Program Executed Successfully!");
+
             }
             s = br.readLine();
+            if (s == null) {
+                break;
+            }
             buffer = s.toCharArray();
         }
     }
